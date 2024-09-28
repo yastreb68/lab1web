@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Лаб 1 Веб Ченцов Матвей P3216</title>
+    <style>
+        body {
+            background-color: #1b1b1b;
+            color: #f0e68c;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            border: 2px solid #c0c0c0;
+            text-align: center;
+            font-size: 20px;
+            font-family: 'Georgia', sans-serif;
+            color: #f0e68c;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            margin-bottom: 60px;
+        }
+
+        .values, .green-zone {
+            border: 2px solid #c0c0c0;
+            padding: 20px;
+            margin-bottom: 40px;
+            width: 1100px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+        }
+
+        .red-zone {
+            border: 2px solid #c0c0c0;
+            padding: 30px;
+            position: absolute;
+            left: 1230px;
+            top: 183px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+        }
+
+        main {
+            margin: 20px;
+            font-size: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin: 5px 0;
+            font-weight: bold;
+            color: #f0e68c;
+        }
+
+        input[type="text"] {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: 232px;
+            font-size: 20px;
+            font-family: 'Arial', sans-serif;
+            background-color: #2e2e2e;
+            color: #f0e68c;
+            border-radius: 5px;
+        }
+
+        .radio-group {
+            margin-bottom: 10px;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+            accent-color: #f0e68c;
+            transform: scale(1.8);
+        }
+
+        button {
+            padding: 10px;
+            margin-right: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+        .x-btn {
+            width: 50px;
+            height: 50px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 20px;
+            color: #f0e68c;
+        }
+
+        table, th, td {
+            border: 1px solid #c0c0c0;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #444;
+        }
+
+        .x-buttons {
+            margin-bottom: 10px;
+        }
+
+        img {
+            max-width: 920px;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        form button {
+            margin-top: 10px;
+        }
+
+        .radio-group label:first-child {
+            font-weight: bold;
+        }
+
+        .error {
+            border: 2px solid red;
+            animation: shake 0.3s;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Ченцов Матвей Петрович P3216 Вариант 413825</h1>
+</header>
+
+<main>
+    <div class="values">
+        <form id="point-form">
+            <label>Координата X:</label>
+            <div class="x-buttons">
+                <button type="button" class="x-btn" data-value="-2">-2</button>
+                <button type="button" class="x-btn" data-value="-1.5">-1.5</button>
+                <button type="button" class="x-btn" data-value="-1">-1</button>
+                <button type="button" class="x-btn" data-value="-0.5">-0.5</button>
+                <button type="button" class="x-btn" data-value="0">0</button>
+                <button type="button" class="x-btn" data-value="0.5">0.5</button>
+                <button type="button" class="x-btn" data-value="1">1</button>
+                <button type="button" class="x-btn" data-value="1.5">1.5</button>
+                <button type="button" class="x-btn" data-value="2">2</button>
+            </div>
+
+            <label for="y">Координата Y:</label>
+            <input type="text" id="y" name="y" placeholder="Введите число от -3 до 3">
+
+            <label>Радиус R:</label>
+            <div class="radio-group">
+                <label><input type="radio" name="r" value="1"> 1</label>
+                <label><input type="radio" name="r" value="1.5"> 1.5</label>
+                <label><input type="radio" name="r" value="2"> 2</label>
+                <label><input type="radio" name="r" value="2.5"> 2.5</label>
+                <label><input type="radio" name="r" value="3"> 3</label>
+            </div>
+
+            <button type="button" id="submit-btn">Отправить</button>
+        </form>
+    </div>
+
+    <div class="green-zone">
+        <table id="results-table">
+            <thead>
+            <tr>
+                <th>X</th>
+                <th>Y</th>
+                <th>R</th>
+                <th>Попадание</th>
+                <th>Время выполнения в секундах</th>
+                <th>Текущее время</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="red-zone">
+        <img src="image.png" alt="Example Image">
+    </div>
+</main>
+<script src="index.js"></script>
+</body>
+</html>
