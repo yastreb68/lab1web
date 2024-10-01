@@ -24,26 +24,38 @@ public class Server {
         String[] parsedRequest = request.replace("{", "").replace("}", "").split(",");
 
         float[] values = new float[3];
-        values[0] = Float.parseFloat(parsedRequest[0].split(":")[1].trim());
-        values[1] = Float.parseFloat(parsedRequest[1].split(":")[1].trim());
+        try {
+            values[0] = Float.parseFloat(parsedRequest[0].split(":")[1].trim());
+            values[1] = Float.parseFloat(parsedRequest[1].split(":")[1].trim());
+            values[2] = Float.parseFloat(parsedRequest[2].split(":")[1].trim());
+        } catch (Exception error) {
 
-        values[2] = Float.parseFloat(parsedRequest[2].split(":")[1].trim());
+            System.out.println("""
+            HTTP/1.1 400 Bad request
+            Content-Type: application/json
+            Content-Length: %d
 
+            {
+
+            "message": "Bad request: Incorrect values"
+
+            }
+            """);
+        }
         return values;
-
     }
-    public void sendResponse() throws IOException {
+public void sendResponse() throws IOException {
 
-        var fcgiInterface = new FCGIInterface();
-        while (fcgiInterface.FCGIaccept() >= 0) {
-            double start = System.nanoTime();
-            var values = readRequest();
-            float x = values[0];
-            float y = values[1];
-            float r = values[2];
-            var status = PointChecker.isInside(x, y ,r);
-            double end = System.nanoTime();
-            var content = """
+var fcgiInterface = new FCGIInterface();
+while (fcgiInterface.FCGIaccept() >= 0) {
+double start = System.nanoTime();
+var values = readRequest();
+float x = values[0];
+float y = values[1];
+float r = values[2];
+var status = PointChecker.isInside(x, y ,r);
+double end = System.nanoTime();
+var content = """
                     {
                     
                     "status": %s,
@@ -69,5 +81,3 @@ public class Server {
         }
     }
 }
-
-
